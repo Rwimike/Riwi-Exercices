@@ -1,0 +1,154 @@
+body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Share Tech Mono', monospace;
+    color: #14fe17;
+    overflow: hidden;
+}
+
+.pip-boy {
+    width: 400px;
+    height: 600px;
+    background: #1a1a1a;
+    border: 15px solid #3a3a3a;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 20px #14fe1777, inset 0 0 20px #14fe1733;
+}
+
+.screen {
+    padding: 20px;
+    height: calc(100% - 40px);
+    background: #0d280d;
+    background-image: 
+        radial-gradient(circle at 10% 20%, #14fe1722 0%, transparent 20%),
+        linear-gradient(to bottom, #0d280d, #000);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #f8f8a0; 
+    text-shadow: 0 0 5px #14fe17;
+}
+
+.stats-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.game-log {
+    height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #14fe17;
+    border-bottom: 1px solid #14fe17;
+    padding: 10px 0;
+    margin: 10px 0;
+    font-size: 0.85rem;
+}
+
+.game-log p {
+    margin: 5px 0;
+    animation: textShadow 1s infinite alternate;
+}
+
+@keyframes textShadow {
+    from { text-shadow: 0 0 2px #14fe17; }
+    to { text-shadow: 0 0 5px #14fe17; }
+}
+
+.options {
+    margin: 15px 0;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    background: #0d280d;
+    border: 1px solid #14fe17;
+    color: #f8f8a0;
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.option-btn:hover {
+    background: #14fe17;
+    color: #000;
+}
+
+.inventory {
+    border-top: 1px dashed #14fe17;
+    padding-top: 10px;
+}
+
+.inventory ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.inventory li {
+    background: #14fe1722;
+    padding: 3px 6px;
+    border: 1px dotted #14fe17;
+    font-size: 0.8rem;
+}
+
+.pip-boy-controls {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn-radio, .btn-knob, .btn-light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3a3a3a;
+    border: 2px solid #666;
+    color: #14fe17;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.screen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #14fe1711 50%,
+        transparent 100%
+    );
+    pointer-events: none;
+    animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}

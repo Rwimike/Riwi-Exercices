@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasteland Survivor - Fallout Style</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="pip-boy">
+        <div class="screen">
+            <div class="header">
+                <h1>WASTELAND TERMINAL</h1>
+                <div class="stats-bar">
+                    <span id="vida">❤❤❤❤❤</span>
+                    <span id="miembros">👥: 3</span>
+                    <span id="reputacion">⚖: 0</span>
+                    <span id="dias">📅: 1</span>
+                </div>
+            </div>
+            <div class="game-log" id="gameLog">
+                <p>> Sistema inicializado...</p>
+                <p>> Bienvenido, sobreviviente.</p>
+                <p>> La ciudad está en ruinas. Busca recursos.</p>
+            </div>
+            <div class="options" id="options">
+                
+            </div>
+            <div class="inventory">
+                <h3>MOCHILA:</h3>
+                <ul id="mochila"></ul>
+            </div>
+        </div>
+        <div class="pip-boy-controls">
+            <button class="btn-radio">⚡</button>
+            <button class="btn-knob">⟳</button>
+            <button class="btn-light">💡</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
