@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en bg-dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +8,29 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <header>
+    <header class="container-fluid bg-dark text-white">
         <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Active</a>
+                <a class="nav-link" id="home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Much longer nav link</a>
+                <a class="nav-link" id="about">AboutMe</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" id="contact">contact</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+            </li> -->
         </ul>
     </header>
-    
+    <main>
+        <div class="overlay">
+            <!-- aqui ira el contenido de la pagina -->
+        </div>
+    </main>
 </body>
+<script src="./scripts/script.js"></script>
+</html>
 <script src="./scripts/script.js"></script>
 </html>
