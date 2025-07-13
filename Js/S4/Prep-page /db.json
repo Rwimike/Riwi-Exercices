@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "migueDev",
+      "email": "migue@example.com",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "username": "adminUser",
+      "email": "admin@example.com",
+      "password": "adminpass"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "message": "Great project!",
+      "date": "2025-07-13T15:30:00.000Z"
+    }
+  ]
+}
