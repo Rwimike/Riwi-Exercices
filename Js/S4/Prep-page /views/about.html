@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Eventos - SPA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, nav, main, footer { padding: 1rem; }
+    nav a { margin-right: 1rem; cursor: pointer; color: blue; text-decoration: underline; }
+    .hidden { display: none; }
+    .container { max-width: 600px; margin: auto; }
+    input, button { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 100%; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Gestión de Eventos</h1>
+  <nav id="nav"></nav>
+</header>
+
+<main class="container">
+  <!-- Vistas -->
+  <section id="login" class="view">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="loginUser" placeholder="Usuario">
+    <input type="password" id="loginPass" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+    <p>¿No tienes cuenta? <span onclick="goTo('register')">Regístrate</span></p>
+  </section>
+
+  <section id="register" class="view hidden">
+    <h2>Registro</h2>
+    <input type="text" id="regUser" placeholder="Usuario">
+    <input type="password" id="regPass" placeholder="Contraseña">
+    <select id="regRole">
+      <option value="visitor">Visitante</option>
+      <option value="admin">Administrador</option>
+    </select>
+    <button onclick="register()">Registrarse</button>
+  </section>
+
+  <section id="dashboard" class="view hidden">
+    <h2>Bienvenido <span id="username"></span></h2>
+    <div id="adminControls" class="hidden">
+      <h3>Gestión de Eventos (Administrador)</h3>
+      <button onclick="alert('Crear evento')">Crear Evento</button>
+      <button onclick="alert('Editar evento')">Editar Evento</button>
+    </div>
+    <div id="visitorControls" class="hidden">
+      <h3>Eventos Disponibles</h3>
+      <p>Listado simulado de eventos. Registro no implementado aquí por simplicidad.</p>
+    </div>
+  </section>
+
+  <section id="not-found" class="view hidden">
+    <h2>Ruta no encontrada</h2>
+    <p>La vista solicitada no existe.</p>
+  </section>
+</main>
+
+<footer>
+  <button onclick="logout()">Cerrar sesión</button>
+</footer>
+
+<script>
+  // Simulación de una "base de datos" temporal en localStorage
+  const defaultAdmin = { username: "admin", password: "admin123", role: "admin" };
+  if (!localStorage.getItem("users")) {
+    localStorage.setItem("users", JSON.stringify([defaultAdmin]));
+  }
+
+  const views = ["login", "register", "dashboard", "not-found"];
+
+  function showView(view) {
+    views.forEach(v => document.getElementById(v).classList.add("hidden"));
+    document.getElementById(view).classList.remove("hidden");
+    updateNav(view);
+  }
+
+  function updateNav(view) {
+    const nav = document.getElementById("nav");
+    const session = getSession();
+    nav.innerHTML = session ? `
+      <a onclick="goTo('dashboard')">Inicio</a>
+    ` : `
+      <a onclick="goTo('login')">Login</a>
+      <a onclick="goTo('register')">Registro</a>
+    `;
+  }
+
+  function goTo(route) {
+    const session = getSession();
+    if ((route === "login" || route === "register") && session) {
+      showView("dashboard");
+    } else if ((route === "dashboard") && !session) {
+      showView("not-found");
+    } else if (views.includes(route)) {
+      showView(route);
+    } else {
+      showView("not-found");
+    }
+    history.pushState({}, "", `#${route}`);
+  }
+
+  window.addEventListener("popstate", () => {
+    const route = location.hash.replace("#", "") || "login";
+    goTo(route);
+  });
+
+  function register() {
+    const username = document.getElementById("regUser").value;
+    const password = document.getElementById("regPass").value;
+    const role = document.getElementById("regRole").value;
+    const users = JSON.parse(localStorage.getItem("users"));
+    if (users.find(u => u.username === username)) {
+      alert("Usuario ya registrado");
+      return;
+    }
+    users.push({ username, password, role });
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Registro exitoso. Inicia sesión.");
+    goTo("login");
+  }
+
+  function login() {
+    const username = document.getElementById("loginUser").value;
+    const password = document.getElementById("loginPass").value;
+    const users = JSON.parse(localStorage.getItem("users"));
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+      localStorage.setItem("session", JSON.stringify(user));
+      loadDashboard(user);
+      showView("dashboard");
+    } else {
+      alert("Credenciales incorrectas");
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("session");
+    goTo("login");
+  }
+
+  function getSession() {
+    return JSON.parse(localStorage.getItem("session"));
+  }
+
+  function loadDashboard(user) {
+    document.getElementById("username").textContent = user.username;
+    document.getElementById("adminControls").classList.toggle("hidden", user.role !== "admin");
+    document.getElementById("visitorControls").classList.toggle("hidden", user.role !== "visitor");
+  }
+
+  // Cargar sesión si ya estaba activa
+  window.onload = () => {
+    const session = getSession();
+    if (session) {
+      loadDashboard(session);
+      showView("dashboard");
+    } else {
+      showView("login");
+    }
+  };
+</script>
+</body>
+</html>
