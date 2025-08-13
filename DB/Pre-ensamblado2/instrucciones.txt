@@ -1,0 +1,20 @@
+npm init -y
+npm install express mysql2 csv-parser cors axios
+
+
+
+# Cargar datos CSV
+node csv-loader.js
+
+# Iniciar API server
+node api-server.js
+
+# Probar cliente API
+node api-client.js test
+
+
+GET    /api/clients          // Obtener todos los clientes
+GET    /api/clients/:id      // Obtener cliente específico
+POST   /api/clients          // Crear nuevo cliente
+PUT    /api/clients/:id      // Actualizar cliente
+DELETE /api/clients/:id      // Eliminar cliente
